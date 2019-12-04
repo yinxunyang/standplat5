@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bestvike.standplat.dao.SysRoleDao">
+	<select id="fetchAll" resultType="SysRole">
+		<![CDATA[
+			select id, name from sys_role where status = '0000'
+		]]>
+	</select>
+	<select id="fetchAllPermissions" resultType="SysRole">
+		<![CDATA[
+			select id, permissions from sys_role
+		]]>
+	</select>
+</mapper>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bestvike.standplat.dao.ViewRoleDao">
+    <select id="fetch" parameterType="ViewRole" resultType="ViewRole">
+        <![CDATA[
+			select *
+			from view_role
+			where status = '0000'
+		]]>
+        <if test="fuzzy != null ">
+            <![CDATA[
+            and (id like concat('%',#{fuzzy},'%')  or name like concat('%',#{fuzzy},'%') )
+            ]]>
+        </if>
+        <if test="fuzzy == null">
+            <if test="id != null">
+                <![CDATA[
+				and id = #{id}
+			    ]]>
+            </if>
+            <if test="name != null">
+                <![CDATA[
+				and name like concat(concat('%',#{name}),'%')
+			]]>
+            </if>
+        </if>
+    </select>
+</mapper>

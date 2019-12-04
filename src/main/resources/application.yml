@@ -1,0 +1,78 @@
+
+
+app:
+  instance:
+    code: standplat
+    profile: dev
+  authority:
+    login:
+      allow-retry-times: 3   # 登录失败超过该次数要求输入验证码
+      # 允许的登录方式，支持any-任意password-密码passtoken-动态密码both-密码+动态密码
+      allow-type: any
+    # 新增用户时的默认密码及重置密码，默认为666666
+    # default-password: 666666
+    # 设置为true时，项目启动会覆盖redis内容(authority.json)，设置为false，只要redis有就不覆盖，默认为true
+    # clear-config: true
+    # 设置为true时，项目启动会覆盖redis角色权限，默认为false
+    clear-role-permissions: true
+    # 是否控制路由，默认为true
+    check-route: true
+    # 是否校验url权限
+    check-url: false
+  redis:
+    prefix: standplat
+    # 统一登录前缀
+    authority-prefix: standplat-AUTH
+    # 过期时间，以秒为单位
+    # expire: 3600
+  file:
+    exportPath: ./file/export
+    template-path: classpath:template
+    importPath: ./file/import
+  error:
+    prefix: JX
+server:
+  port: 20000
+  servlet:
+    session:
+      timeout: 600s
+  connection-timeout: 10s
+logging:
+  config: classpath:logback-config.xml
+  file: ${app.instance.code}
+  path: ./log
+  level:
+    root: info
+    com.bestvike: debug
+    org.springframework.security: warn
+spring:
+  application:
+    name: ${app.instance.code}-${app.instance.profile}
+  redis:
+    host: 172.10.11.67
+#    host: 127.0.0.1
+    port: 6379
+  http:
+    encoding:
+      force: true
+  servlet:
+    multipart:
+      max-file-size: 20MB # 最大文件大小
+      max-request-size: 20MB # 最大请求大小
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+datasources:
+  standplat:
+    # 非hikari使用url配置
+#    jdbc-url: jdbc:mariadb://39.98.50.43:3306/standplat_test
+#    jdbc-url: jdbc:mariadb://localhost:3306/standplat
+#    username: root
+#    password: root
+    #driver-class-name: org.mariadb.jdbc.Driver
+    jdbc-url: jdbc:mariadb://172.10.11.67:3306/standplat
+    username: standplat
+    password: standplat
+    hikari:
+      minimum-idle: 2
+      maximum-pool-size: 5
+      connection-test-query: select 1

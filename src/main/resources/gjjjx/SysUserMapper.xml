@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace = "com.bestvike.standplat.dao.SysUserDao">
+    <select id="selectId" resultType="integer">
+        <![CDATA[
+            select IFNULL(max(cast(id as SIGNED INTEGER)), 0) + 1 from sys_user
+        ]]>
+    </select>
+    <update id="resetPassword" parameterType="string">
+        <![CDATA[
+        update sys_user set password = #{password} where id = #{id}
+        ]]>
+    </update>
+    <update id="cancelAccount" parameterType="string">
+        update sys_user set status='9999' where id=#{id}
+    </update>
+    <update id="saveGrants" parameterType="string">
+         <![CDATA[
+            update sys_user set roles=#{grants} where id=#{userId}
+        ]]>
+    </update>
+    <select id="selectIsGrantCount" parameterType="list" resultType="int">
+        <![CDATA[
+        SELECT
+          COUNT(*)
+        FROM sys_user
+    ]]>
+        <where>
+            <foreach collection="roles" item="role" separator="or">
+                FIND_IN_SET(#{role}, roles)
+            </foreach>
+        </where>
+    </select>
+
+    <select id="selectTwoUser" resultType="com.bestvike.standplat.data.SysUser">
+        select * from sys_user
+        where FIND_IN_SET('0011',roles)
+    </select>
+</mapper>

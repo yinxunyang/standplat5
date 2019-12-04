@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bestvike.standplat.dao.DeptAssRecordDao">
+    <select id="fetchAll" resultType="AssessReportInfo" parameterType="com.bestvike.standplat.data.AssessReportInfo">
+        select dar.*,di2.name as deptName from dept_assess_report dar,dept_info di2
+        where di2.id = dar.dep_id
+        <if test="assessMonth==null or assessMonth.trim().length()==0 ">
+            and dar.assess_month = CONCAT(YEAR(SYSDATE()),MONTH(SYSDATE())-1)
+        </if>
+        <if test="assessMonth!=null and assessMonth.trim().length()!=0 ">
+            and dar.assess_month =#{assessMonth}
+        </if>
+        <if test="fuzzy!=null and fuzzy.trim().length()!=0 ">
+            and di2.name like concat(concat('%',#{fuzzy}),'%')
+        </if>
+    </select>
+    <select id="fetchCord" resultType="DeptAssRecord" parameterType="com.bestvike.standplat.data.DeptAssRecord">
+        select distinct di.name as depName,tsd.* from dept_assess_record tsd,dept_info di
+        where tsd.jury_id = #{juryId}
+        <if test="assessMonth==null or assessMonth.trim().length()==0 ">
+            and tsd.assess_month = CONCAT(YEAR(SYSDATE()),MONTH(SYSDATE())-1)
+        </if>
+        <if test="assessMonth!=null and assessMonth.trim().length()!=0 ">
+            and tsd.assess_month = #{assessMonth}
+        </if>
+        and di.id =  tsd.dept_id
+        <if test="fuzzy!=null and fuzzy.trim().length()!=0 ">
+            and di.name like concat(concat('%',#{fuzzy}),'%')
+        </if>
+    </select>
+    <select id="selectAvgForInDept" resultType="String" parameterType="java.lang.String">
+        select avg(tst.assess_score) from dept_assess_report tst where tst.dep_id in (select di.id from dept_info di where di.need_assessment = '1') and tst.assess_month = #{assessMonth}
+    </select>
+</mapper>

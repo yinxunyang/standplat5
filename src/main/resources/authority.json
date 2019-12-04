@@ -1,0 +1,10 @@
+{
+  "whites": [
+    "/api/authority/info",
+    "/api/authority/token",
+    "/api/authority/login",
+    "/api/authority/logout",
+    "/api/users/avatar",
+    "/api/dicts/{code}"
+  ]
+}

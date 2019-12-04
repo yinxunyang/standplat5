@@ -1,0 +1,118 @@
+group 'com.bestvike'
+version '1.0.0'
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'maven'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+sourceCompatibility = 1.8
+ext {
+	snippetsDir = file("$buildDir/generated-snippets")
+}
+configurations.all {
+	//默认情况下包才上传后24小时更新一次，这个配置自动更新为10s
+	//10秒钟，可自定义，如10,'minutes'10分钟，10,'hours'10小时
+	resolutionStrategy.cacheChangingModulesFor 10,'seconds'
+}
+
+buildscript {
+	ext {
+		springBootVersion = '2.1.6.RELEASE'
+		springCloudVersion = 'Greenwich.SR1'
+		// gralde -Prelease
+		if (project.hasProperty('release')) {
+			releasePublish = true
+		} else {
+			releasePublish = false;
+		}
+	}
+	repositories {
+		mavenLocal()
+		maven { url 'https://maven.bestvike.com/repository/maven-public/' }
+	}
+	dependencies {
+		classpath "io.spring.gradle:dependency-management-plugin:1.0.6.RELEASE"
+		classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+	}
+}
+
+repositories {
+	mavenLocal()
+
+	maven { url 'https://maven.bestvike.com/repository/maven-public/' }
+	maven { url 'https://maven.bestvike.com/repository/third-party/' }
+	flatDir {
+		dirs 'lib'
+	}
+}
+
+dependencyManagement {
+	imports {
+		mavenBom 'org.springframework.boot:spring-boot-starter-parent:' + springBootVersion
+		mavenBom 'org.springframework.cloud:spring-cloud-dependencies:' + springCloudVersion
+	}
+}
+
+bootJar {
+	baseName = project.name
+	version = project.version
+	from('static') {
+		into 'static'
+	}
+}
+sourceSets {
+	main {
+		java {
+			srcDir 'src/main/java'
+		}
+		resources {
+			srcDirs 'src/main/java'
+		}
+	}
+}
+test {
+	outputs.dir snippetsDir
+}
+dependencies {
+	compile("com.bestvike:commons:0.0.13-SNAPSHOT")
+	compile("org.jxls:jxls-poi:1.0.9")
+	compile("org.jxls:jxls:2.4.6")
+	compile("org.jxls:jxls-reader:2.0.2")
+	// spring boot
+	compile("org.springframework.boot:spring-boot-starter")
+	compile("org.springframework.boot:spring-boot-starter-web")
+	compile("org.springframework.boot:spring-boot-starter-data-redis")
+	compile("org.springframework.boot:spring-boot-starter-security")
+	compile("org.springframework.boot:spring-boot-starter-jdbc")
+
+	// spring
+	compile("org.springframework.session:spring-session-data-redis")
+	compile('net.sf.json-lib:json-lib:2.4:jdk15')
+	// jedis
+	/// compile("redis.clients:jedis:2.9.0")
+	// jdbc
+	// compile("com.oracle:ojdbc6:11g")
+	compile("org.mariadb.jdbc:mariadb-java-client:2.4.1")
+	compile("org.mybatis:mybatis:3.5.2")
+	compile("tk.mybatis:mapper:4.1.5")
+	compile("com.github.pagehelper:pagehelper:5.1.8")
+	compile("org.mybatis.spring.boot:mybatis-spring-boot-starter:2.0.1")
+	compile("net.logstash.logback:logstash-logback-encoder:5.2")
+
+	compile("org.apache.commons:commons-lang3:3.7")
+	compile("commons-codec:commons-codec:1.11")
+	// compile("org.apache.commons:commons-pool2:2.5.0")
+	//fastjson
+	compile group: 'com.alibaba', name: 'fastjson', version: '1.2.17'
+	// java
+	// compileOnly("javax.servlet:javax.servlet-api:3.1.0")
+	// https://mvnrepository.com/artifact/org.javassist/javassist
+	compile group: 'org.javassist', name: 'javassist', version: '3.20.0-GA'
+
+	compile("org.aspectj:aspectjrt:1.8.10")
+	compile("org.aspectj:aspectjweaver:1.8.10")
+	compile group: 'com.alibaba', name: 'fastjson', version: '1.2.58'
+}
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
