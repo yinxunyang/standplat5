@@ -62,10 +62,10 @@ spring:
 datasources:
   standplat:
     datasource:
-      url: jdbc:oracle:thin:@172.10.10.68:1521/bvbdc
-      username: zjb
-      password: zjb
-      driverClassName: oracle.jdbc.OracleDriver # org.mariadb.jdbc.Driver #
+      jdbc-url: jdbc:oracle:thin:@127.0.0.1:1521/orcl
+      username: bvdf_aks
+      password: bvdf_aks
+      driver-class-name: oracle.jdbc.OracleDriver # org.mariadb.jdbc.Driver #
       # 初始化大小，最小，最大
       initialSize: 6
       minIdle: 4
