@@ -86,6 +86,7 @@ dependencies {
 	compile("org.springframework.boot:spring-boot-starter-data-redis")
 	compile("org.springframework.boot:spring-boot-starter-security")
 	compile("org.springframework.boot:spring-boot-starter-jdbc")
+	compile("org.springframework.boot:spring-boot-starter-test")
 
 	// spring
 	compile("org.springframework.session:spring-session-data-redis")
