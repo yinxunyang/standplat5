@@ -2,9 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace = "com.bestvike.standplat.dao.SysUserDao">
         <!--生成用户编号-->
-        <select id="selectId" resultType="Integer">
+        <select id="selectId" resultType="String">
             <![CDATA[
-            select nvl(max(user_id), 0) + 1 from sys_user
+            select t.bldno from arc_buildinfo t where t.bldno = '602609053'
         ]]>
         </select>
 </mapper>

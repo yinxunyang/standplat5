@@ -1,5 +1,6 @@
 package com.bestvike.standplat;
 
+import com.bestvike.standplat.dao.ArcBuildInfoMapper;
 import com.bestvike.standplat.dao.SysUserDao;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +21,19 @@ public class MidTableTest extends BaseTest {
 
 		@Test
 		public void test10() {
-			int ss = sysUserDao.selectId();
+			String ss = sysUserDao.selectId();
 			System.out.println("ss:" + ss);
 		}
+
+	/*	@Autowired
+		private ArcBuildInfoMapper arcBuildInfoMapper;
+
+
+		@Test
+		public void test10() {
+			String ss = arcBuildInfoMapper.queryArcBuildInfoById();
+			System.out.println("ss:" + ss);
+		}*/
 	/*@Autowired
 	private JdbcTemplate jdbcTemplate;
 
