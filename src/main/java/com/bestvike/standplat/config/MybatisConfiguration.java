@@ -52,7 +52,7 @@ public class MybatisConfiguration implements ApplicationContextAware {
         SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
         sqlSessionFactoryBean.setDataSource(dataSource());
         sqlSessionFactoryBean.setTypeAliasesPackage("com.bestvike.standplat.data");
-        sqlSessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath*:mapping/standplat/*.xml"));
+        sqlSessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath*:standplat/mapping/*.xml"));
         tk.mybatis.mapper.session.Configuration configuration = new tk.mybatis.mapper.session.Configuration();
         configuration.setMapUnderscoreToCamelCase(true);
         sqlSessionFactoryBean.setConfiguration(configuration);

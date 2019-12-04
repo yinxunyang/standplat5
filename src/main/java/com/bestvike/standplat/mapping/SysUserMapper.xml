@@ -3,7 +3,7 @@
 <mapper namespace = "com.bestvike.standplat.dao.SysUserDao">
     <select id="selectId" resultType="integer">
         <![CDATA[
-            select IFNULL(max(cast(id as SIGNED INTEGER)), 0) + 1 from sys_user
+            select max id from sys_user
         ]]>
     </select>
     <update id="resetPassword" parameterType="string">

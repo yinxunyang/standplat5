@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace = "com.bestvike.standplat.dao.PostInfoDao">
-    <select id="getEmpPostCount" resultType="java.lang.Integer" parameterType="java.lang.String">
-        <![CDATA[
-          SELECT count(*) from emp_info e where e.post_code = #{code}
-        ]]>
-    </select>
-</mapper>
