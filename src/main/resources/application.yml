@@ -59,31 +59,9 @@ spring:
       max-request-size: 20MB # 最大请求大小
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
-datasources:
-  standplat:
-    datasource:
-      jdbc-url: jdbc:oracle:thin:@127.0.0.1:1521/orcl
-      username: bvdf_aks
-      password: bvdf_aks
-      driver-class-name: oracle.jdbc.OracleDriver # org.mariadb.jdbc.Driver #
-      # 初始化大小，最小，最大
-      initialSize: 6
-      minIdle: 4
-      maxIdle: 15
-      maxActive: 22
-      # 配置获取连接等待超时的时间
-      maxWait: 60000
-      # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
-      timeBetweenEvictionRunsMillis: 60000
-      # 配置一个连接在池中最小生存的时间，单位是毫秒
-      minEvictableIdleTimeMillis: 300000
-      validationQuery: select 1 from dual
-      testWhileIdle: true
-      testOnBorrow: false
-      testOnReturn: false
-    mybatis:
-      dialect: org.apache.ibatis.dialect.OracleDialect # org.apache.ibatis.dialect.MariadbDialect
-      basePackage: com.bestvike.standplat.dao #com.bestvike.commons.dao
-      aliasesPackage: com.bestvike.standplat.data
-      mapperLocations: classpath*:com/bestvike/standplat/mapping/*.xml #com/bestvike/commons/mapping/*.xml
-      underscoreToCamelCase: true
+  datasource:
+    jdbc-url: jdbc:oracle:thin:@localhost:1521:orcl
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    username: bvdf_aks
+    password: bvdf_aks
+

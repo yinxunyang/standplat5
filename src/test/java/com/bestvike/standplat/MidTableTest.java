@@ -3,6 +3,7 @@ package com.bestvike.standplat;
 import com.bestvike.standplat.dao.SysUserDao;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 /**
  * @Author: yinxunyang
@@ -13,14 +14,23 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 public class MidTableTest extends BaseTest {
 
-	@Autowired
-	private SysUserDao sysUserDao;
+		@Autowired
+		private SysUserDao sysUserDao;
 
+
+		@Test
+		public void test10() {
+			int ss = sysUserDao.selectId();
+			System.out.println("ss:" + ss);
+		}
+	/*@Autowired
+	private JdbcTemplate jdbcTemplate;
 
 	@Test
-	public void test10() {
-		int ss = sysUserDao.selectId();
-		System.out.println("ss:" + ss);
-	}
+	public void test2() {
+		String sql = "select sysdate from dual";
+		jdbcTemplate.execute(sql);
+		System.out.println("执行完成");
+	}*/
 
 }

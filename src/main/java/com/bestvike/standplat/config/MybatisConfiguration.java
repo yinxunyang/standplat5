@@ -35,7 +35,7 @@ public class MybatisConfiguration implements ApplicationContextAware {
     }
 
     @Bean(name="dataSource")
-    @ConfigurationProperties(prefix = "datasources.standplat")
+    @ConfigurationProperties(prefix = "spring.datasource")
     @Primary
     public DataSource dataSource() {
         return DataSourceBuilder.create().build();
