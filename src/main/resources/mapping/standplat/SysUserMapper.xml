@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace = "com.bestvike.standplat.dao.SysUserDao">
-    <select id="selectId" resultType="integer">
-        <![CDATA[
-            select max id from sys_user
+        <!--生成用户编号-->
+        <select id="selectId" resultType="Integer">
+            <![CDATA[
+            select nvl(max(user_id), 0) + 1 from sys_user
         ]]>
-    </select>
+        </select>
 </mapper>
