@@ -122,22 +122,4 @@ public class SysUserServiceImpl extends BaseService implements SysUserService {
         }
     }
 
-    @Override
-    public int resetPass(String id) {
-        try {
-            String password = new BCryptPasswordEncoder().encode(EncryptUtils.MD5Encode(defaultPassword));
-            return sysUserDao.resetPassword(id, password);
-        } catch (NoSuchAlgorithmException e) {
-            throw new ServiceException("密码加密异常");
-        }
-    }
-
-    @Override
-    public int saveGrants(String id, String[] roles) {
-        String roleIds = "";
-        if (roles != null && roles.length > 0) {
-            roleIds = String.join(",", roles);
-        }
-        return sysUserDao.saveGrants(id, roleIds);
-    }
 }

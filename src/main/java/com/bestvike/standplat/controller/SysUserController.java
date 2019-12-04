@@ -52,23 +52,4 @@ public class SysUserController extends BaseController {
     public void remove(@PathVariable String ids) {
         sysUserService.remove(ids);
     }
-
-    /**
-     * 用户管理重置密码为666666
-     * @return
-     */
-    @PutMapping("/api/users/{id}/password/reset")
-    public int resetPass(@PathVariable("id") String id) {
-        return sysUserService.resetPass(id);
-    }
-
-
-    /**
-     * 保存用户授权角色
-     * @return
-     */
-    @PutMapping("/api/users/{id}/roles")
-    public int saveGrants(@PathVariable String id, @RequestBody String[] roles) {
-        return sysUserService.saveGrants(id, roles);
-    }
 }

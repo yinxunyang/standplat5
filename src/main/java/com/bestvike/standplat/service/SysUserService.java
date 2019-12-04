@@ -15,6 +15,4 @@ public interface SysUserService {
     int create(SysUser sysUser) throws NoSuchAlgorithmException;
     int modify(SysUser sysUser);
     void remove(String ids);
-    int resetPass(String id);
-    int saveGrants(String id, String[] roles);
 }
