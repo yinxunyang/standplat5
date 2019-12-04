@@ -57,7 +57,7 @@ public class MybatisConfiguration implements ApplicationContextAware {
         configuration.setMapUnderscoreToCamelCase(true);
         sqlSessionFactoryBean.setConfiguration(configuration);
 
-        // 分页插件
+       /* // 分页插件
         Interceptor interceptor = new PageInterceptor();
         Properties properties = new Properties();
         properties.setProperty("helperDialect", "mariadb");
@@ -67,7 +67,7 @@ public class MybatisConfiguration implements ApplicationContextAware {
         properties.setProperty("supportMethodsArguments","true");
         properties.setProperty("params","pageNum=page;pageSize=limit;");
         interceptor.setProperties(properties);
-        sqlSessionFactoryBean.setPlugins(new Interceptor[] {interceptor});
+        sqlSessionFactoryBean.setPlugins(new Interceptor[] {interceptor});*/
         return sqlSessionFactoryBean.getObject();
     }
     @Bean(name="sqlSessionTemplate")
