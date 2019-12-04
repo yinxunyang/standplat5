@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 @Entity
-public class SysUser extends BasePageData implements Serializable {
+public class SysUser implements Serializable {
     private  static  final long serialVersionUID = 1L;
 
     @Id

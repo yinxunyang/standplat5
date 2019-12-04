@@ -4,12 +4,7 @@ import com.bestvike.commons.crypto.bcrypt.BCryptPasswordEncoder;
 import com.bestvike.commons.exception.ServiceException;
 import com.bestvike.commons.utils.EncryptUtils;
 import com.bestvike.commons.utils.StringUtils;
-import com.bestvike.standplat.dao.DeptInfoDao;
-import com.bestvike.standplat.dao.SysRoleDao;
 import com.bestvike.standplat.dao.SysUserDao;
-import com.bestvike.standplat.data.BaseData;
-import com.bestvike.standplat.data.DeptInfo;
-import com.bestvike.standplat.data.SysRole;
 import com.bestvike.standplat.data.SysUser;
 import com.bestvike.standplat.service.BaseService;
 import com.bestvike.standplat.service.SysUserService;
@@ -23,9 +18,7 @@ import tk.mybatis.mapper.entity.Example;
 import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -33,10 +26,6 @@ import java.util.Map;
 public class SysUserServiceImpl extends BaseService implements SysUserService {
     @Autowired
     private SysUserDao sysUserDao;
-    @Autowired
-    private SysRoleDao sysRoleDao;
-    @Autowired
-    private DeptInfoDao deptInfoDao;
 
     @Value("${app.authority.default-password:666666}")
     private String defaultPassword;
@@ -50,35 +39,9 @@ public class SysUserServiceImpl extends BaseService implements SysUserService {
             criteria.andEqualTo("deptId", sysUser.getDeptId());
         }
         criteria.andEqualTo("status", "0000");
-        if (!StringUtils.isEmpty(sysUser.getFuzzy())) {
-            criteria1.andLike("empId", "%" + sysUser.getFuzzy() + "%").orLike("name", "%" + sysUser.getFuzzy() + "%");
-            example.and(criteria1);
-        } else {
-            if (!StringUtils.isEmpty(sysUser.getId())) {
-                criteria.andEqualTo("id", sysUser.getId());
-            }
-            if (!StringUtils.isEmpty(sysUser.getName())) {
-                criteria.andLike("name", "%" + sysUser.getName() + "%");
-            }
-        }
-        BaseData.Sort sort = sysUser.getFormattedSort();
-        if (sort != null) {
-            if(!StringUtils.isEmpty(sort.isDescending())) {
-                if (sort.isDescending()) {
-                    example.orderBy(sort.getProp()).desc();
-                } else {
-                    example.orderBy(sort.getProp());
-                }
-            } else {
-                example.orderBy(sort.getProp());
-            }
-        }
-        List<SysUser> sysUsers = sysUserDao.selectByExample(example);
-        sysUsers.stream().forEach(e->{
-            DeptInfo deptInfo = deptInfoDao.selectByPrimaryKey(e.getDeptId());
-            e.setDeptName(deptInfo.getName());
-        });
-        return sysUsers;
+
+
+        return null;
     }
 
     @Override
@@ -167,26 +130,6 @@ public class SysUserServiceImpl extends BaseService implements SysUserService {
         } catch (NoSuchAlgorithmException e) {
             throw new ServiceException("密码加密异常");
         }
-    }
-
-    @Override
-    public Map<String, List<SysRole>> fetchGrants(String id) {
-        Map<String, List<SysRole>> map = new HashMap<>();
-        List<SysRole> roles = sysRoleDao.selectAll();
-        List<SysRole> grants = new ArrayList<>();
-        SysUser sysUser = sysUserDao.selectByPrimaryKey(id);
-        if (!StringUtils.isEmpty(sysUser.getRoles())) {
-            String[] userRoles = sysUser.getRoles().split(",");
-            for (String userRole : userRoles) {
-                SysRole sysRole = sysRoleDao.selectByPrimaryKey(userRole);
-                if (sysRole != null) {
-                    grants.add(sysRole);
-                }
-            }
-        }
-        map.put("roles", roles);
-        map.put("grants", grants);
-        return map;
     }
 
     @Override

@@ -1,6 +1,5 @@
 package com.bestvike.standplat.service;
 
-import com.bestvike.standplat.data.SysRole;
 import com.bestvike.standplat.data.SysUser;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +16,5 @@ public interface SysUserService {
     int modify(SysUser sysUser);
     void remove(String ids);
     int resetPass(String id);
-    Map<String, List<SysRole>> fetchGrants(String id);
     int saveGrants(String id, String[] roles);
 }

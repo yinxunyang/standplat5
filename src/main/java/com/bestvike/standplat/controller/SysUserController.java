@@ -1,6 +1,5 @@
 package com.bestvike.standplat.controller;
 
-import com.bestvike.standplat.data.SysRole;
 import com.bestvike.standplat.data.SysUser;
 import com.bestvike.standplat.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,15 +62,6 @@ public class SysUserController extends BaseController {
         return sysUserService.resetPass(id);
     }
 
-    /**
-     * 查询用户授权角色
-     * @param id
-     * @return
-     */
-    @GetMapping("/api/users/{id}/roles")
-    public Map<String, List<SysRole>> fetchGrants(@PathVariable String id) {
-        return sysUserService.fetchGrants(id);
-    }
 
     /**
      * 保存用户授权角色
