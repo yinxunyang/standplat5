@@ -62,21 +62,24 @@ spring:
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
 datasources:
-  standplat:
-    jdbc-url: jdbc:oracle:thin://172.10.10.68:1521/bvbdc # jdbc:oracle:thin:@172.16.9.2:1521/orcl
-          username: zjb
-          password: zjb
-          driverClassName: oracle.jdbc.OracleDriver # org.mariadb.jdbc.Driver #
-    # 非hikari使用url配置
-#    jdbc-url: jdbc:mariadb://39.98.50.43:3306/standplat_test
-#    jdbc-url: jdbc:mariadb://localhost:3306/standplat
-#    username: root
-#    password: root
-    #driver-class-name: org.mariadb.jdbc.Driver
-    #jdbc-url: jdbc:mariadb://172.10.11.67:3306/standplat
-   # username: standplat
-   # password: standplat
-   # hikari:
-    #  minimum-idle: 2
-    #  maximum-pool-size: 5
-    #  connection-test-query: select 1
+  elastic:
+    datasource:
+    url: jdbc:oracle:thin:@172.10.10.68:1521/bvbdc # jdbc:oracle:thin:@172.16.9.2:1521/orcl
+    username: zjb
+    password: zjb
+    driverClassName: oracle.jdbc.OracleDriver # org.mariadb.jdbc.Driver #
+    # 初始化大小，最小，最大
+    initialSize: 6
+    minIdle: 4
+    maxIdle: 15
+    maxActive: 22
+    # 配置获取连接等待超时的时间
+    maxWait: 60000
+    # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+    timeBetweenEvictionRunsMillis: 60000
+    # 配置一个连接在池中最小生存的时间，单位是毫秒
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: select 1 from dual
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
